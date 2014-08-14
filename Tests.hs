@@ -1,11 +1,11 @@
 import GenPw
 import Test.QuickCheck
+import Test.QuickCheck.Random
 import Text.Printf
-import System.Random
 
-main = mapM_ (\(s, a) -> printf "%-25s" s >> a) tests
+main = mapM_ (\(s, a) -> printf "%-25s: " s >> a) tests
 
-prop_lenth :: RandomGen g => IO g -> Int -> Bool
-prop_lenth (IO g) = \n -> ((length $ genPw n g) == n)
+prop_lenth (n, g) = ((length . genPw num . mkTheGen $ g) == num)
+                    where num = abs n
 
-tests = [("test length", quickCheck $ prop_lenth getStdGen)]
+tests = [("test length", verboseCheck $ (prop_lenth :: (Int, Int) -> Bool))]

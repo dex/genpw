@@ -72,5 +72,5 @@ executable genpw
 test-suite tests
   type:		exitcode-stdio-1.0
   main-is:	Tests.hs
-  build-depends:       QuickCheck >=2.6, base, random
+  build-depends:       QuickCheck >=2.7, base, random
   default-language:    Haskell98
